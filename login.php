@@ -1,43 +1,34 @@
 <?php
-	$result ="";
-	if(isset($_GET['msg'])) 
-	{
-		$result=$_GET['msg'];
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+	$username = $_POST['username'];
+	$password = $_POST['password'];
+
+	// validate the user's credentials here
+	// ...
+
+	if (/* the user's credentials are valid */) {
+		session_start();
+		$_SESSION['username'] = $username;
+		header('Location: dashboard.php');
+		exit;
+	} else {
+		echo 'Invalid username or password.';
 	}
+}
 ?>
 <!DOCTYPE html>
-<html >
+<html>
 <head>
-  <meta charset="UTF-8">
-  <title>LOGIN</title>
-  <link rel="stylesheet" href="css/st.css">
+	<title>Login Page</title>
 </head>
-
 <body>
-  <div class="wrapper">
-	<div class="container">
-		<h1>Welcome</h1>
-		
-		<form class="form" method="POST" Action="controller/login.php">
-			<input type="text" name="name" placeholder="Email Address">
-			<input type="password" name="password" placeholder="Password">
-			<h3 style="color: #FF0000;"><?php echo $result; ?></h3>
-			<button type="submit" name="clientlogin" id="login-button">Login</button>
-		</form>
-	</div>
-	<ul class="bg-bubbles">
-		<li></li>
-		<li></li>
-		<li></li>
-		<li></li>
-		<li></li>
-		<li></li>
-		<li></li>
-		<li></li>
-		<li></li>
-		<li></li>
-	</ul>
-</div>
-  <script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
+	<h2>Login Page</h2>
+	<form action="login.php" method="post">
+		<label for="username">Username:</label>
+		<input type="text" id="username" name="username"><br><br>
+		<label for="password">Password:</label>
+		<input type="password" id="password" name="password"><br><br>
+		<input type="submit" value="Submit">
+	</form>
 </body>
 </html>
